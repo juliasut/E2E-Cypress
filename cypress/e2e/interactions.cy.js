@@ -18,4 +18,18 @@ describe('Basic page interactions', () => {
       .invoke('text')
       .should('equal', '1');
   });
+
+  it('displays the name of the currently selected item', () => {
+    cy.get('[data-cy=box-3-dropdown]').select('Option Three');
+
+    cy.get('[data-cy=box-3-selected-name]')
+      .invoke('text')
+      .should('equal', 'Option Three');
+  });
+
+  it('should display the name of the most recently hovered item', () => {
+    cy.get('[data-cy=box-4-items-list] > :nth-child(2)').trigger('mouseover');
+
+    cy.get('[data-cy=box-4-selected-name]').invoke('text').should('equal', 'Option Two')
+  });
 });
